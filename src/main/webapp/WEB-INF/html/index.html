@@ -2,23 +2,37 @@
 <html lang="en-US">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <style>
-	.title{
+	.title, .amount, .name{
 		text-align: center;
 		color: #ffffff;	
 	}
 	.mainView{
 		background-color: #000000;
 	}
-	.name{
+	.nameInput{
+		width: 300px;
 		text-align: center;
-		color: #ffffff;	
+	}
+	.amountInput{
+		width: 300px;
+		text-align: center;
+	}
+	::placeholder{
+		color: #000000;
 	}
 </style>
 <body class="mainView">
 
 <div data-ng-app="">
-  <h1 class="title">Expense Tracker</h1><br>
+  <h1 class="title">Expense Tracker</h1>
+  <br><br><br>
   <h2 class="name">Name</h2>
+  <br><br><br>
+  <div style="text-align:center;"><input type="text" name="nameInput" class="nameInput" placeholder="Enter the name"></div>
+  <br><br><br>
+  <h2 class="amount">Amount</h2>
+  <br><br><br>
+  <div style="text-align:center;"><input type="text" name="amountInput" class="amountInput" placeholder="Enter the amount"></div>
 </div>
 
 </body>
