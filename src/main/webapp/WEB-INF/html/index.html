@@ -1,38 +1,79 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script>
+	var app = angular.module('expApp', []);
+	app.controller('expController', function($scope, $http) {
+		$scope.addExpense = function() {
+			if(expForm.nameInput.$valid && expForm.amountInput.$valid) {
+				$http.get('http://localhost:8080/ExpTracker/updateExp').
+				then(function(response) {
+					var message = response.data;
+					alert("success " + message.msg);
+				}, function(response) {
+					alert("failure");
+				});
+			}
+			else {
+				alert("fill all fields");
+			}
+		}	
+	});
+</script>
 <style>
-	.title, .amount, .name{
+	.title, .amount, .name {
 		text-align: center;
 		color: #ffffff;	
 	}
-	.mainView{
+	.mainView {
 		background-color: #000000;
 	}
-	.nameInput{
+	.nameInput {
 		width: 300px;
 		text-align: center;
 	}
-	.amountInput{
+	.amountInput {
 		width: 300px;
 		text-align: center;
 	}
-	::placeholder{
+	::placeholder {
+		color: #000000;
+	}
+	.formComponents {
+		text-align: center;
+	}
+	.addButton {
+		background-color: #ffffff;
 		color: #000000;
 	}
 </style>
 <body class="mainView">
 
-<div data-ng-app="">
+<div data-ng-app="expApp" data-ng-controller="expController">
   <h1 class="title">Expense Tracker</h1>
   <br><br><br>
-  <h2 class="name">Name</h2>
-  <br><br><br>
-  <div style="text-align:center;"><input type="text" name="nameInput" class="nameInput" placeholder="Enter the name"></div>
-  <br><br><br>
-  <h2 class="amount">Amount</h2>
-  <br><br><br>
-  <div style="text-align:center;"><input type="text" name="amountInput" class="amountInput" placeholder="Enter the amount"></div>
+  <form name="expForm">
+	  <h2 class="name">Name</h2>
+	  <br><br><br>
+	  
+	  <div class="formComponents">
+	  	<input type="text" name="nameInput" class="nameInput" placeholder="Enter the name" required data-ng-model="name">
+	  </div>
+	  <br><br><br>
+	  
+	  <h2 class="amount">Amount</h2>
+	  <br><br><br>
+	  
+	  <div class="formComponents">
+	  	<input type="text" name="amountInput" class="amountInput" placeholder="Enter the amount" required data-ng-model="amount">
+	  </div>
+	  <br><br><br>
+	  
+	  <div class="formComponents">
+	  	<input type="button" value="Add" class="addButton" data-ng-click="addExpense()"/>
+	  </div>
+	  
+  </form>
 </div>
 
 </body>
