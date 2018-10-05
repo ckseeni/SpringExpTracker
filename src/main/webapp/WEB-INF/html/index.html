@@ -4,8 +4,9 @@
 <script>
 	var app = angular.module('expApp', []);
 	app.controller('expController', function($scope, $http) {
+		
 		$scope.addExpense = function() {
-			if(expForm.nameInput.$valid && expForm.amountInput.$valid) {
+			if($scope.expForm.$valid) { 
 				$http.get('http://localhost:8080/ExpTracker/updateExp').
 				then(function(response) {
 					var message = response.data;
@@ -17,11 +18,18 @@
 			else {
 				alert("fill all fields");
 			}
-		}	
+		};	
+	
+		$scope.filterAmount = function($event) {
+			$scope.amountError = "";
+			if($event.keyCode <48 || $event.keyCode >57) {
+				$scope.amountError = "Only numbers are allowed";	
+			}
+		}; 	
 	});
 </script>
 <style>
-	.title, .amount, .name {
+	.title, .amount, .name, .amountError {
 		text-align: center;
 		color: #ffffff;	
 	}
@@ -59,16 +67,18 @@
 	  <div class="formComponents">
 	  	<input type="text" name="nameInput" class="nameInput" placeholder="Enter the name" required data-ng-model="name">
 	  </div>
+	  <br>
 	  <br><br><br>
 	  
 	  <h2 class="amount">Amount</h2>
 	  <br><br><br>
 	  
 	  <div class="formComponents">
-	  	<input type="text" name="amountInput" class="amountInput" placeholder="Enter the amount" required data-ng-model="amount">
+	  	<input type="text" name="amountInput" class="amountInput" placeholder="Enter the amount" required data-ng-keypress="filterAmount($event)" data-ng-model="amount">
 	  </div>
+	  <br>
+	  <h2 ng-bind="amountError" class="amountError"></h2>
 	  <br><br><br>
-	  
 	  <div class="formComponents">
 	  	<input type="button" value="Add" class="addButton" data-ng-click="addExpense()"/>
 	  </div>
