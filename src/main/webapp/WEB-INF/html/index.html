@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
 	var app = angular.module('expApp', []);
 	app.controller('expController', function($scope, $http) {
 		
 		$scope.addExpense = function() {
 			if($scope.expForm.$valid) { 
-				$http.get('http://localhost:8080/ExpTracker/updateExp').
-				then(function(response) {
-					var message = response.data;
-					alert("success " + message.msg);
+				var obj = {
+					"name" : $scope.name,
+					"amount" : $scope.amount
+				};
+				var expData = JSON.stringify(obj);
+				$http.post('http://localhost:8080/ExpTracker/updateExp/',expData)
+				.then(function(response) {
+					var message = response.data.name;
+					alert(message);
 				}, function(response) {
 					alert("failure");
 				});

@@ -1,8 +1,10 @@
 package com.ExpTracker.Controller;
 
 
+
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,10 +18,9 @@ public class MainController {
 		return "index";
 	}
 	
-	@RequestMapping(value = "/updateExp", method = RequestMethod.GET, produces = {"application/json"})
-	public @ResponseBody Object updateExpenses() {
-		JSONObject jsonObject = new JSONObject();
-		jsonObject.put ("msg", "dontknow");
+	@RequestMapping(value = "/updateExp", method = RequestMethod.POST)
+	public @ResponseBody String updateExpenses(@RequestBody String expData) {
+		JSONObject jsonObject = new JSONObject(expData);
 		return jsonObject.toString();
 	}
 
