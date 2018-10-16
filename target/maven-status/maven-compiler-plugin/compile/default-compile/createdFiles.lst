@@ -1,3 +1,4 @@
 com\ExpTracker\Configuration\WebInitializer.class
+com\ExpTracker\Model\Expenses.class
 com\ExpTracker\Configuration\ApplicationConfiguration.class
 com\ExpTracker\Controller\MainController.class
