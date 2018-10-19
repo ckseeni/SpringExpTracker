@@ -1,7 +1,11 @@
 package com.ExpTracker.Controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
+
+import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -9,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ExpTracker.Dao.ExpensesDao;
 import com.ExpTracker.Model.ExpensesDTO;
@@ -32,6 +37,14 @@ public class MainController {
 		catch(Exception e) {
 			response.setStatus(500);
 		}
+	}
+	
+	@RequestMapping(value = "/retriveExp", method = RequestMethod.GET)
+	public @ResponseBody String retrieveExpenses() throws JsonGenerationException, JsonMappingException, IOException {
+		ExpensesDao expdao = new ExpensesDao();
+		List<ExpensesDTO> result = expdao.readAllExpenses();
+		String expJson = new ObjectMapper().writeValueAsString(result);
+		return expJson;
 	}
 
 }

@@ -25,6 +25,19 @@
 			}
 		};	
 	
+		$scope.retrieveExpense = function() {
+			$http.get('http://localhost:8080/ExpTracker/retriveExp/')
+			.then(function(response) {
+				var result = "";
+				for(var i in response.data) {
+					result = result + response.data[i].name+" "+response.data[i].amount+"\n";	
+				}
+				alert(result);
+			}, function() {
+				alert("error while retriveing data in server!!");
+			});
+		};
+		
 		$scope.filterAmount = function($event) {
 			$scope.amountError = "";
 			if($event.keyCode <48 || $event.keyCode >57) {
@@ -55,7 +68,7 @@
 	.formComponents {
 		text-align: center;
 	}
-	.addButton {
+	.Button {
 		background-color: #ffffff;
 		color: #000000;
 	}
@@ -82,10 +95,13 @@
 	  	<input type="text" name="amountInput" class="amountInput" placeholder="Enter the amount" required data-ng-keypress="filterAmount($event)" data-ng-model="amount">
 	  </div>
 	  <br>
-	  <h2 ng-bind="amountError" class="amountError"></h2>
+	  <h2 data-ng-bind="amountError" class="amountError"></h2>
 	  <br><br><br>
 	  <div class="formComponents">
-	  	<input type="button" value="Add" class="addButton" data-ng-click="addExpense()"/>
+	  	<input type="button" value="Add" class="Button" data-ng-click="addExpense()"/>
+	  	<br>
+	  	<br><br>
+	  	<input type="button" value="Retrieve" class="Button" data-ng-click="retrieveExpense()"/>
 	  </div>
 	  
   </form>
