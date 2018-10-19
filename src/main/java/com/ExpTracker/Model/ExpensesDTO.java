@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Expenses")
-public class Expenses {
+public class ExpensesDTO {
 
 	private String name;
 	private int amount;

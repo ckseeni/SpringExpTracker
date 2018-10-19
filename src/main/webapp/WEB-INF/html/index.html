@@ -13,7 +13,7 @@
 					"amount" : $scope.amount
 				};
 				var expData = JSON.stringify(obj);
-				$http.post('http://localhost:8080/ExpTracker/updateExp/',expData)
+				$http.post('http://localhost:8080/ExpTracker/addExp/',expData)
 				.then(function(response) {
 					var message = response.data.name;
 					alert(message);
