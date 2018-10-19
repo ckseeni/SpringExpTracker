@@ -1,4 +1,5 @@
+com\ExpTracker\Model\ExpensesDTO.class
 com\ExpTracker\Configuration\WebInitializer.class
-com\ExpTracker\Model\Expenses.class
+com\ExpTracker\Dao\ExpensesDao.class
 com\ExpTracker\Configuration\ApplicationConfiguration.class
 com\ExpTracker\Controller\MainController.class

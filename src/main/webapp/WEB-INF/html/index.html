@@ -14,11 +14,10 @@
 				};
 				var expData = JSON.stringify(obj);
 				$http.post('http://localhost:8080/ExpTracker/addExp/',expData)
-				.then(function(response) {
-					var message = response.data.name;
-					alert(message);
+				.then(function() {
+					alert(obj.name+"\n"+obj.amount+"\n stored");
 				}, function(response) {
-					alert("failure");
+					alert("Error while storing data in server!!!");
 				});
 			}
 			else {
