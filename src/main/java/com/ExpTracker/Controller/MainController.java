@@ -9,6 +9,7 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,7 +45,9 @@ public class MainController {
 		ExpensesDao expdao = new ExpensesDao();
 		List<ExpensesDTO> result = expdao.readAllExpenses();
 		String expJson = new ObjectMapper().writeValueAsString(result);
-		return expJson;
+		JSONObject expListObject = new JSONObject();
+		expListObject.put("expList",expJson);
+		return expListObject.toString();
 	}
 
 }

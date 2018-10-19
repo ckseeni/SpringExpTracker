@@ -29,9 +29,10 @@
 			$http.get('http://localhost:8080/ExpTracker/retriveExp/')
 			.then(function(response) {
 				var result = "";
-				for(var i in response.data) {
-					result = result + response.data[i].name+" "+response.data[i].amount+"\n";	
-				}
+				var expArr = JSON.parse(response.data.expList);
+				for(var i=0; i < expArr.length; i++) {
+					result = result  + expArr[i].name+" "+expArr[i].amount+"\n";
+				}	
 				alert(result);
 			}, function() {
 				alert("error while retriveing data in server!!");
