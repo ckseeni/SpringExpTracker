@@ -1,0 +1,25 @@
+.title, .amount, .name, .amountError, .expList {
+	text-align: center;
+	color: #ffffff;	
+}
+.mainView {
+	background-color: #000000;
+}
+.nameInput {
+	width: 300px;
+	text-align: center;
+}
+.amountInput {
+	width: 300px;
+	text-align: center;
+}
+::placeholder {
+	color: #000000;
+}
+.formComponents {
+	text-align: center;
+}
+.Button {
+	background-color: #ffffff;
+	color: #000000;
+}
