@@ -2,7 +2,6 @@ var app = angular.module('expListApp', []);
 app.controller('expListController', function($scope, $http) {
 	
 	$scope.loadExpList = function() {
-		alert("asdf");
 		$scope.expList = [{name:"loading"}];
 		$http.get('http://localhost:8080/ExpTracker/retriveExp/')
 		.then(function(response) {
@@ -16,7 +15,13 @@ app.controller('expListController', function($scope, $http) {
 	};
 	
 	$scope.clearExpList = function() {
-		alert("asdf");
+		$http.delete('http://localhost:8080/ExpTracker/delExp/')
+		.then(function() {
+			alert("Expenses list cleared!!");
+			$scope.loadExpList();
+		}, function() {
+			alert("error");
+		});
 	};
 
 });
