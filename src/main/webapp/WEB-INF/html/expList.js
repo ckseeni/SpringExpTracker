@@ -1,5 +1,5 @@
 var app = angular.module('expListApp', []);
-app.controller('expListController', function($scope, $http) {
+app.controller('expListController', function($scope, $http, $window) {
 	
 	$scope.loadExpList = function() {
 		$scope.expList = [{name:"loading"}];
@@ -15,13 +15,15 @@ app.controller('expListController', function($scope, $http) {
 	};
 	
 	$scope.clearExpList = function() {
-		$http.delete('http://localhost:8080/ExpTracker/delExp/')
-		.then(function() {
-			alert("Expenses list cleared!!");
-			$scope.loadExpList();
-		}, function() {
-			alert("error");
-		});
+		if($window.confirm("Data will be deleted Permanently!!\nDo you want to continue?")) {
+			$http.delete('http://localhost:8080/ExpTracker/delExp/')
+			.then(function() {
+				alert("Expenses list cleared!!");
+				$scope.loadExpList();
+			}, function() {
+				alert("error");
+			});
+		}
 	};
 
 });
