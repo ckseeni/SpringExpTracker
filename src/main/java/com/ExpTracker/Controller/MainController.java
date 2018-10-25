@@ -49,5 +49,12 @@ public class MainController {
 		expListObject.put("expList",expJson);
 		return expListObject.toString();
 	}
+	
+	@RequestMapping(value = "/delExp", method = RequestMethod.DELETE)
+	public void deleteExpenses(HttpServletResponse response) {
+		ExpensesDao expdao = new ExpensesDao();
+		expdao.deleteExpenses();
+		response.setStatus(201);	
+	}
 
 }

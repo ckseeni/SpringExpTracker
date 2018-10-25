@@ -1,66 +1,8 @@
 <!DOCTYPE html>
-<html lang="en-US">
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-	var app = angular.module('expApp', []);
-	app.controller('expController', function($scope, $http) {
-		
-		$scope.addExpense = function() {
-			if($scope.expForm.$valid) { 
-				var obj = {
-					"name" : $scope.name,
-					"amount" : $scope.amount
-				};
-				var expData = JSON.stringify(obj);
-				$http.post('http://localhost:8080/ExpTracker/addExp/',expData)
-				.then(function(response) {
-					var message = response.data.name;
-					alert(message);
-				}, function(response) {
-					alert("failure");
-				});
-			}
-			else {
-				alert("fill all fields");
-			}
-		};	
-	
-		$scope.filterAmount = function($event) {
-			$scope.amountError = "";
-			if($event.keyCode <48 || $event.keyCode >57) {
-				$scope.amountError = "Only numbers are allowed";	
-			}
-		}; 	
-	});
-</script>
-<style>
-	.title, .amount, .name, .amountError {
-		text-align: center;
-		color: #ffffff;	
-	}
-	.mainView {
-		background-color: #000000;
-	}
-	.nameInput {
-		width: 300px;
-		text-align: center;
-	}
-	.amountInput {
-		width: 300px;
-		text-align: center;
-	}
-	::placeholder {
-		color: #000000;
-	}
-	.formComponents {
-		text-align: center;
-	}
-	.addButton {
-		background-color: #ffffff;
-		color: #000000;
-	}
-</style>
+<html lang = "en-US">
+<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src = "expMain.js"></script>
+<link rel = "stylesheet" type = "text/css" href = "expMain.css" />
 <body class="mainView">
 
 <div data-ng-app="expApp" data-ng-controller="expController">
@@ -83,10 +25,13 @@
 	  	<input type="text" name="amountInput" class="amountInput" placeholder="Enter the amount" required data-ng-keypress="filterAmount($event)" data-ng-model="amount">
 	  </div>
 	  <br>
-	  <h2 ng-bind="amountError" class="amountError"></h2>
+	  <h2 data-ng-bind="amountError" class="amountError"></h2>
 	  <br><br><br>
 	  <div class="formComponents">
-	  	<input type="button" value="Add" class="addButton" data-ng-click="addExpense()"/>
+	  	<input type="button" value="Add" class="Button" data-ng-click="addExpense()"/>
+	  	<br>
+	  	<br><br>
+	  	<input type="button" value="Retrieve" class="Button" data-ng-click="retrieveExpense()"/>
 	  </div>
 	  
   </form>

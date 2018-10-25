@@ -1,0 +1,17 @@
+<html lang = "en-US">
+<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src = "expList.js"></script>
+<link rel = "stylesheet" type = "text/css" href = "expMain.css" />
+<body class="mainView" data-ng-app="expListApp" data-ng-controller="expListController" data-ng-init = "loadExpList()">
+
+<h2 class = "expList">Expenses list</h2>
+
+<h2 data-ng-repeat = "item in expList" class = "expList">
+{{item.name + " : " + item.amount + "\n\n"}}
+</h2>
+<br><br><br>
+<div  class = "formComponents">
+<input type = "button" value = "clear" data-ng-click = "clearExpList()" />
+</div>
+</body>
+</html>

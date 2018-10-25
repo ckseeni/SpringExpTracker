@@ -13,5 +13,15 @@ app.controller('expListController', function($scope, $http) {
 			$scope.expList = expArr;
 		});
 	};
+	
+	$scope.clearExpList = function() {
+		$http.delete('http://localhost:8080/ExpTracker/delExp/')
+		.then(function() {
+			alert("Expenses list cleared!!");
+			$scope.loadExpList();
+		}, function() {
+			alert("error");
+		});
+	};
 
 });

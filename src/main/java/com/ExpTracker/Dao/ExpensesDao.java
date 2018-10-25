@@ -37,4 +37,11 @@ public class ExpensesDao {
 		session.persist(e);
 		transaction.commit();
 	}
+	
+	public void deleteExpenses() {
+		Transaction transaction = session.beginTransaction();
+		TypedQuery<ExpensesDTO> query = session.createQuery("delete from ExpensesDTO");
+		query.executeUpdate();
+		transaction.commit();
+	}
 }
