@@ -6,9 +6,9 @@
 
 <h2 class = "expList">Expenses list</h2>
 
-<h2 data-ng-repeat = "item in expList" class = "expList">
-{{item.name + " : " + item.amount + "\n\n"}}
-</h2>
+<div data-ng-repeat = "item in expList" class = "expList">
+<h2 data-ng-click = "onExpListClick(item)">{{item.name + " : " + item.amount + "\n\n"}}</h2>
+</div>
 <br><br><br>
 <div  class = "formComponents">
 <button data-ng-click = "clearExpList()">Clear</button>

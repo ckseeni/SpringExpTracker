@@ -11,7 +11,17 @@ public class ExpensesDTO {
 
 	private String name;
 	private int amount;
+	private String dateAndTime;
 	
+	@Column(name="dateAndTime")
+	public String getDateAndTime() {
+		return dateAndTime;
+	}
+
+	public void setDateAndTime(String dateAndTime) {
+		this.dateAndTime = dateAndTime;
+	}
+
 	@Id
 	@Column(name="name")
 	public String getName() {

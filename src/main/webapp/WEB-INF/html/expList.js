@@ -26,4 +26,8 @@ app.controller('expListController', function($scope, $http, $window) {
 		}
 	};
 
+	$scope.onExpListClick = function(item) {
+		alert(item.name + ":" + item.amount + "\nstored on " + item.dateAndTime);
+	}
+	
 });

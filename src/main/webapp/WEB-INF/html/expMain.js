@@ -3,14 +3,17 @@ app.controller('expController', function($scope, $http, $location) {
 		
 	$scope.addExpense = function() {
 		if($scope.expForm.$valid) { 
+			var date = new Date();
+			var dtString = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 			var obj = {
 				"name" : $scope.name,
-				"amount" : $scope.amount
+				"amount" : $scope.amount,
+				"dateAndTime" : dtString
 			};
 			var expData = JSON.stringify(obj);
 			$http.post('http://localhost:8080/ExpTracker/addExp/',expData)
 			.then(function() {
-				alert(obj.name+"\n"+obj.amount+"\n stored");
+				alert(obj.name+"\n"+obj.amount+"\n stored on "+obj.dateAndTime);
 			}, function(response) {
 				alert("Error while storing data in server!!!");
 			});
