@@ -4,14 +4,16 @@
 <link rel = "stylesheet" type = "text/css" href = "expMain.css" />
 <body class="mainView" data-ng-app="expListApp" data-ng-controller="expListController" data-ng-init = "loadExpList()">
 
-<h2 class = "expList">Expenses list</h2>
+<h2 class = "title">Expenses list</h2>
 
 <div data-ng-repeat = "item in expList" class = "expList">
 <h2 data-ng-click = "onExpListClick(item)">{{item.name + " : " + item.amount + "\n\n"}}</h2>
 </div>
+<br>
+<h2 class = "expList">Total Expenses : {{totalExp}}</h2>
 <br><br><br>
-<div  class = "formComponents">
-<button data-ng-click = "clearExpList()" class = "Button">Clear</button>
+<div  class = "dockedBottomButton">
+<button data-ng-click = "clearExpList()" class = "Button">X</button>
 </div>
 </body>
 </html>

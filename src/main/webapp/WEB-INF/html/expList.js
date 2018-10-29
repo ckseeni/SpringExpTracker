@@ -1,6 +1,8 @@
 var app = angular.module('expListApp', []);
 app.controller('expListController', function($scope, $http, $window) {
 	
+	$scope.totalExp = 0;
+	
 	$scope.loadExpList = function() {
 		$scope.expList = [{name:"loading"}];
 		$http.get('http://localhost:8080/ExpTracker/retriveExp/')
@@ -11,6 +13,9 @@ app.controller('expListController', function($scope, $http, $window) {
 			return "";
 		}).then(function(expArr) {
 			$scope.expList = expArr;
+			for (item in expArr) {
+				$scope.totalExp = $scope.totalExp + Number(expArr[item].amount);
+			}
 		});
 	};
 	
