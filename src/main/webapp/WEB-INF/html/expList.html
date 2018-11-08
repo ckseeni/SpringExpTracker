@@ -5,13 +5,23 @@
 <body class="mainView" data-ng-app="expListApp" data-ng-controller="expListController" data-ng-init = "loadExpList()">
 
 <h2 class = "title">Expenses list</h2>
-
-<div data-ng-repeat = "item in expList" class = "expList">
-<h2 data-ng-click = "onExpListClick(item)">{{item.name + " : " + item.amount + "\n\n"}}</h2>
-</div>
-<br>
-<h2 class = "expList">Total Expenses : {{totalExp}}</h2>
 <br><br><br>
+ <table cellpadding = "0" cellspacing = "0" id = "expListTable" align="center">
+ 	<tr>
+ 		<th>Name</th>
+ 		<th>Amount</th>
+ 	</tr>
+ 	<tbody data-ng-repeat = "item in expList">
+ 		<tr>
+ 			<td>{{item.name}}</td>
+ 			<td>{{item.amount}}</td>
+ 		</tr>
+ 	</tbody>
+ 	<tr>
+ 	<td>Total Expenses</td>
+ 	<td>{{totalExp}}</td>
+ 	</tr>
+ </table>
 <div  class = "dockedBottomButton">
 <button data-ng-click = "clearExpList()" class = "Button">X</button>
 </div>
