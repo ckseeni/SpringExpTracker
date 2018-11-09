@@ -33,6 +33,49 @@ app.controller('expListController', function($scope, $http, $window) {
 
 	$scope.onExpListClick = function(item) {
 		alert(item.name + ":" + item.amount + "\nstored on " + item.dateAndTime);
+	};
+	
+	function generateCSV() {
+		var result = '',  
+			ctr,
+			keys,
+			colDelimiter = ',', 
+			lineDelimiter = '\n',
+			data = $scope.expList;
+		
+		keys = Object.keys(data[0]);
+		
+		result = "Name,Amount";
+		result += lineDelimiter;
+
+		data.forEach(function(item) {
+			ctr = 0;
+			keys.forEach(function(key) {
+				if (key == "name" || key == "amount") {
+					if (ctr > 0) result += colDelimiter;
+					result += item[key];
+					ctr++;
+				}
+			});
+			result += lineDelimiter;
+		});
+		
+		result = result + "Total Expenses" + colDelimiter + $scope.totalExp + lineDelimiter; 
+		return result;
 	}
+	
+	function downloadCSV() {  
+        var csv = generateCSV();
+        var filename = "ExpenseList.csv";
+        csv = 'data:text/csv;charset=utf-8,' + csv;
+        link = document.createElement('a');
+        link.setAttribute('href', csv);
+        link.setAttribute('download', filename);
+        link.click();
+    }
+	
+	$scope.exportCSV = function() {
+		downloadCSV();
+	};
 	
 });
