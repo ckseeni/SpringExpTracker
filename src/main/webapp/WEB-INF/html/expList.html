@@ -12,7 +12,7 @@
  		<th>Amount</th>
  	</tr>
  	<tbody data-ng-repeat = "item in expList">
- 		<tr>
+ 		<tr data-ng-click = "onExpListClick(item)">
  			<td>{{item.name}}</td>
  			<td>{{item.amount}}</td>
  		</tr>
@@ -24,6 +24,7 @@
  </table>
 <div  class = "dockedBottomButton">
 <button data-ng-click = "clearExpList()" class = "Button">X</button>
+<button class = "Button" data-ng-click = "exportPdf()">Export PDF</button>
 </div>
 </body>
 </html>
