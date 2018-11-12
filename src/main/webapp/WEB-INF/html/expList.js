@@ -75,7 +75,13 @@ app.controller('expListController', function($scope, $http, $window) {
     }
 	
 	$scope.exportCSV = function() {
-		downloadCSV();
+		//downloadCSV();
+		$http.post('http://localhost:8080/ExpTracker/emailExp')
+		.then(function() {
+			alert("email sent successfully!!");
+		}, function() {
+			alert("Error in sending email!!");
+		});
 	};
 	
 });

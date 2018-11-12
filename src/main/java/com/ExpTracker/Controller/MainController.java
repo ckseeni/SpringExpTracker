@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ExpTracker.Dao.ExpensesDao;
+import com.ExpTracker.Email.EmailService;
 import com.ExpTracker.Model.ExpensesDTO;
 
 @Controller
@@ -58,4 +59,14 @@ public class MainController {
 		response.setStatus(201);	
 	}
 
+	@RequestMapping(value = "/emailExp", method = RequestMethod.POST)
+	public void emailSender(HttpServletResponse response) {
+		EmailService emailService = new EmailService();
+		try {
+			emailService.sendEmail();
+			response.setStatus(200);
+		} catch(Exception e) {
+			response.setStatus(500);
+		}
+	}
 }
