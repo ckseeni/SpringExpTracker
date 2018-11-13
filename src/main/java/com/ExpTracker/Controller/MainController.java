@@ -60,10 +60,10 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/emailExp", method = RequestMethod.POST)
-	public void emailSender(HttpServletResponse response) {
+	public void emailSender(@RequestBody String expCSVData, HttpServletResponse response) {
 		EmailService emailService = new EmailService();
 		try {
-			emailService.sendEmail();
+			emailService.sendEmail(expCSVData);
 			response.setStatus(200);
 		} catch(Exception e) {
 			response.setStatus(500);

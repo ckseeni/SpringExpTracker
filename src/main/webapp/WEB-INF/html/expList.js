@@ -71,12 +71,12 @@ app.controller('expListController', function($scope, $http, $window) {
         link = document.createElement('a');
         link.setAttribute('href', csv);
         link.setAttribute('download', filename);
-        link.click();
     }
 	
 	$scope.exportCSV = function() {
 		//downloadCSV();
-		$http.post('http://localhost:8080/ExpTracker/emailExp')
+		var csv = generateCSV();
+		$http.post('http://localhost:8080/ExpTracker/emailExp',csv)
 		.then(function() {
 			alert("email sent successfully!!");
 		}, function() {

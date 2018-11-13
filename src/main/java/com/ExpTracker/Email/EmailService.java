@@ -1,22 +1,32 @@
 package com.ExpTracker.Email;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Properties;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 public class EmailService {
 
-	public void sendEmail() throws MessagingException {
+	public void sendEmail(String expCSVData) throws MessagingException, FileNotFoundException {
 		
 		String host="smtp.gmail.com";  
 		final String user="ckseenitce@gmail.com";  
-		final String password="115690433";
+		final String password="thewalkingdead";
 		final String port = "465";    
 		String to="ckseeni199631@gmail.com";
 		    
@@ -29,7 +39,12 @@ public class EmailService {
 		props.put("mail.smtp.socketFactory.port", port);
 		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 		props.put("mail.smtp.socketFactory.fallback", "false");
-		   
+		
+		File csvFile = new File("ExpensesList.csv");
+		PrintWriter pw = new PrintWriter(csvFile);
+		pw.write(expCSVData);
+		pw.close();
+		
 		Session session = Session.getDefaultInstance(props,  
 			new javax.mail.Authenticator() {  
 		    	protected PasswordAuthentication getPasswordAuthentication() {  
@@ -40,8 +55,18 @@ public class EmailService {
 		MimeMessage message = new MimeMessage(session);  
 		message.setFrom(new InternetAddress(user));  
 		message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));  
-		message.setSubject("test");  
-		message.setText("test mail");  
+		message.setSubject("ExpensesList");  
+		
+        BodyPart messageBodyPart = new MimeBodyPart();
+        messageBodyPart.setText("Expenses list is provided as attachment. Download it");
+        Multipart multipart = new MimeMultipart();
+        multipart.addBodyPart(messageBodyPart);
+        messageBodyPart = new MimeBodyPart();
+        DataSource source = new FileDataSource("ExpensesList.csv");
+        messageBodyPart.setDataHandler(new DataHandler(source));
+        messageBodyPart.setFileName("ExpensesList.csv");
+        multipart.addBodyPart(messageBodyPart);
+        message.setContent(multipart);
 		         
 		Transport.send(message);  
 		   
