@@ -1,8 +1,7 @@
 package com.ExpTracker.Email;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.IOException;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -19,10 +18,11 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.mail.util.ByteArrayDataSource;
 
 public class EmailService {
 
-	public void sendEmail(String expCSVData) throws MessagingException, FileNotFoundException {
+	public void sendEmail(String expCSVData) throws MessagingException, IOException {
 		
 		String host="smtp.gmail.com";  
 		final String user="ckseenitce@gmail.com";  
@@ -39,11 +39,6 @@ public class EmailService {
 		props.put("mail.smtp.socketFactory.port", port);
 		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 		props.put("mail.smtp.socketFactory.fallback", "false");
-		
-		File csvFile = new File("ExpensesList.csv");
-		PrintWriter pw = new PrintWriter(csvFile);
-		pw.write(expCSVData);
-		pw.close();
 		
 		Session session = Session.getDefaultInstance(props,  
 			new javax.mail.Authenticator() {  
@@ -62,7 +57,7 @@ public class EmailService {
         Multipart multipart = new MimeMultipart();
         multipart.addBodyPart(messageBodyPart);
         messageBodyPart = new MimeBodyPart();
-        DataSource source = new FileDataSource("ExpensesList.csv");
+        DataSource source = new ByteArrayDataSource(expCSVData, "application/x-any");
         messageBodyPart.setDataHandler(new DataHandler(source));
         messageBodyPart.setFileName("ExpensesList.csv");
         multipart.addBodyPart(messageBodyPart);
