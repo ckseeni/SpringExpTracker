@@ -1,4 +1,4 @@
-.title, .amount, .name, .amountError, .expList {
+.title, .amount, .name, .amountError, .expList, .username, .password {
 	text-align: center;
 	color: #ffffff;	
 }
@@ -13,7 +13,23 @@
 	border-radius: 25px;
 	border: 1px solid rgba(255, 255, 255, 0.3);
 }
+.userNameInput {
+	height: 25px;
+	width: 200px;
+	text-align: center;
+	background-color: rgba(255, 255, 255, 0.3);
+	border-radius: 25px;
+	border: 1px solid rgba(255, 255, 255, 0.3);
+}
 .amountInput {
+	height: 25px;
+	width: 200px;
+	text-align: center;
+	background-color: rgba(255, 255, 255, 0.3);
+	border-radius: 25px;
+	border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.passwordInput {
 	height: 25px;
 	width: 200px;
 	text-align: center;
@@ -42,6 +58,14 @@
 	border-radius: 25px;
 	border: 1px solid rgba(255, 255, 255, 0.3);
 	font-size: 25px;
+}
+.LoginFormButton {
+	height: 35px;
+	width: 200px;
+	background-color: #1C313A;
+	color: #FFFFFF;
+	border-radius: 25px;
+	border: 1px solid rgba(255, 255, 255, 0.3);
 }
 #expListTable {
 	color: #ffffff;	

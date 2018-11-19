@@ -1,37 +1,35 @@
 <!DOCTYPE html>
 <html lang = "en-US">
 <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-<script src = "expMain.js"></script>
+<script src = "login.js"></script>
 <link rel = "stylesheet" type = "text/css" href = "expMain.css" />
-<body class="mainView">
 
-<div data-ng-app="expApp" data-ng-controller="expController">
+<body class="mainView">
+<div data-ng-app="loginApp" data-ng-controller="loginController">
   <h1 class="title">Expense Tracker</h1>
   <br><br><br>
-  <form name="expForm">
-	  <h2 class="name">Name</h2>
+  <form name="loginForm">
+	  <h2 class="username">Username</h2>
 	  <br><br><br>
 	  
 	  <div class="formComponents">
-	  	<input type="text" name="nameInput" class="nameInput" placeholder="Enter the name" required data-ng-model="name">
+	  	<input type="text" name="username" class="userNameInput" placeholder="Enter the Username" required data-ng-model="username">
 	  </div>
 	  <br>
 	  <br><br><br>
 	  
-	  <h2 class="amount">Amount</h2>
+	  <h2 class="password">Password</h2>
 	  <br><br><br>
 	  
 	  <div class="formComponents">
-	  	<input type="text" name="amountInput" class="amountInput" placeholder="Enter the amount" required data-ng-keypress="filterAmount($event)" data-ng-model="amount">
+	  	<input type="password" name="password" class="passwordInput" placeholder="Enter the Password" required data-ng-model="password">
 	  </div>
-	  <br>
-	  <h2 data-ng-bind="amountError" class="amountError"></h2>
 	  <br><br><br>
 	  <div class="formComponents">
-	  	<input type="button" value="+" class="Button" data-ng-click="addExpense()"/>
+	  	<input type="button" value="Login" class="LoginFormButton" data-ng-click="onLogin()"/>
 	  	<br>
 	  	<br><br>
-	  	<input type="button" value=">" class="Button" data-ng-click="retrieveExpense()"/>
+	  	<input type="button" value="Register" class="LoginFormButton" data-ng-click="onRegister()"/>
 	  </div>
 	  
   </form>

@@ -32,6 +32,11 @@ public class MainController {
 		return "index";
 	}
 	
+	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
+	public void addUser(@RequestBody String userObj, HttpServletResponse response) {
+		System.out.println(userObj);
+	}
+	
 	@RequestMapping(value = "/addExp", method = RequestMethod.POST)
 	public void addExpenses(@RequestBody String expData, HttpServletResponse response) throws JsonParseException, JsonMappingException, IOException {
 		ExpensesDTO expensesDTO = new ObjectMapper().readValue(expData, ExpensesDTO.class);
