@@ -3,3 +3,6 @@ C:\Spring apps\ExpTracker\src\main\java\com\ExpTracker\Configuration\WebInitiali
 C:\Spring apps\ExpTracker\src\main\java\com\ExpTracker\Model\ExpensesDTO.java
 C:\Spring apps\ExpTracker\src\main\java\com\ExpTracker\Controller\MainController.java
 C:\Spring apps\ExpTracker\src\main\java\com\ExpTracker\Dao\ExpensesDao.java
+C:\Spring apps\ExpTracker\src\main\java\com\ExpTracker\Dao\UsersDao.java
+C:\Spring apps\ExpTracker\src\main\java\com\ExpTracker\Model\UsersDTO.java
+C:\Spring apps\ExpTracker\src\main\java\com\ExpTracker\Email\EmailService.java

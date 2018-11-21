@@ -13,8 +13,8 @@ app.controller('loginController', function($scope, $http) {
 			}
 			userObj = JSON.stringify(userObj);
 			$http.post('http://localhost:8080/ExpTracker/addUser/',userObj)
-			.then(function() {
-				alert("Registration successfull!!");
+			.then(function(response) {
+				alert("Registration successfull!!"+response);
 			}, function() {
 				alert("Registration Failed!!");
 			});

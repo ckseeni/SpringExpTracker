@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src = "expMain.js"></script>
+<link rel = "stylesheet" type = "text/css" href = "expMain.css" />
+<body class="mainView">
+
+<div data-ng-app="expApp" data-ng-controller="expController">
+  <h1 class="title">Expense Tracker</h1>
+  <br><br><br>
+  <form name="expForm">
+	  <h2 class="name">Name</h2>
+	  <br><br><br>
+	  
+	  <div class="formComponents">
+	  	<input type="text" name="nameInput" class="nameInput" placeholder="Enter the name" required data-ng-model="name">
+	  </div>
+	  <br>
+	  <br><br><br>
+	  
+	  <h2 class="amount">Amount</h2>
+	  <br><br><br>
+	  
+	  <div class="formComponents">
+	  	<input type="text" name="amountInput" class="amountInput" placeholder="Enter the amount" required data-ng-keypress="filterAmount($event)" data-ng-model="amount">
+	  </div>
+	  <br>
+	  <h2 data-ng-bind="amountError" class="amountError"></h2>
+	  <br><br><br>
+	  <div class="formComponents">
+	  	<input type="button" value="+" class="Button" data-ng-click="addExpense()"/>
+	  	<br>
+	  	<br><br>
+	  	<input type="button" value=">" class="Button" data-ng-click="retrieveExpense()"/>
+	  </div>
+	  
+  </form>
+</div>
+
+</body>
+</html>

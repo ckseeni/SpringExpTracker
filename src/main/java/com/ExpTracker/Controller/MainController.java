@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ExpTracker.Dao.ExpensesDao;
+import com.ExpTracker.Dao.UsersDao;
 import com.ExpTracker.Email.EmailService;
 import com.ExpTracker.Model.ExpensesDTO;
+import com.ExpTracker.Model.UsersDTO;
 
 @Controller
 public class MainController {
@@ -27,14 +29,25 @@ public class MainController {
 	@Autowired
 	public ExpensesDao expdao;
 	
+	@Autowired
+	public UsersDao usersDao;
+	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String indexPage() {
 		return "index";
 	}
 	
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
-	public void addUser(@RequestBody String userObj, HttpServletResponse response) {
-		System.out.println(userObj);
+	public void addUser(@RequestBody String userObj, HttpServletResponse response) throws JsonParseException, JsonMappingException, IOException {
+		UsersDTO usersDTO = new ObjectMapper().readValue(userObj, UsersDTO.class);
+		try {
+			usersDao.addUsers(usersDTO);
+			response.setStatus(201);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			response.setStatus(403);
+		}
 	}
 	
 	@RequestMapping(value = "/addExp", method = RequestMethod.POST)

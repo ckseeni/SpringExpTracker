@@ -1,25 +1,77 @@
-.title, .amount, .name, .amountError, .expList {
+.title, .amount, .name, .amountError, .expList, .username, .password {
 	text-align: center;
 	color: #ffffff;	
 }
 .mainView {
-	background-color: #000000;
+	background-color: #455A64;
 }
 .nameInput {
-	width: 300px;
+	height: 25px;
+	width: 200px;
 	text-align: center;
+	background-color: rgba(255, 255, 255, 0.3);
+	border-radius: 25px;
+	border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.userNameInput {
+	height: 25px;
+	width: 200px;
+	text-align: center;
+	background-color: rgba(255, 255, 255, 0.3);
+	border-radius: 25px;
+	border: 1px solid rgba(255, 255, 255, 0.3);
 }
 .amountInput {
-	width: 300px;
+	height: 25px;
+	width: 200px;
 	text-align: center;
+	background-color: rgba(255, 255, 255, 0.3);
+	border-radius: 25px;
+	border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.passwordInput {
+	height: 25px;
+	width: 200px;
+	text-align: center;
+	background-color: rgba(255, 255, 255, 0.3);
+	border-radius: 25px;
+	border: 1px solid rgba(255, 255, 255, 0.3);
 }
 ::placeholder {
-	color: #000000;
+	color: #FFFFFF;
 }
 .formComponents {
 	text-align: center;
 }
+.dockedBottomButton {
+	background-color: #455A64;
+	width:100%;
+    position:fixed;
+    bottom:0px;
+	text-align: center;
+}
 .Button {
-	background-color: #ffffff;
-	color: #000000;
+	height: 50px;
+	width: 50px;
+	background-color: #1C313A;
+	color: #FFFFFF;
+	border-radius: 25px;
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	font-size: 25px;
+}
+.LoginFormButton {
+	height: 35px;
+	width: 200px;
+	background-color: #1C313A;
+	color: #FFFFFF;
+	border-radius: 25px;
+	border: 1px solid rgba(255, 255, 255, 0.3);
+}
+#expListTable {
+	color: #ffffff;	
+	text-align: center;	
+}
+table th, table td{
+	padding: 5px;
+	border: 1px solid #FFFFFF;
 }
