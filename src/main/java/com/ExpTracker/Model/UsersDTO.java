@@ -2,6 +2,7 @@ package com.ExpTracker.Model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
@@ -11,6 +12,7 @@ public class UsersDTO {
 	private String username;
 	private String password;
 	
+	@Id
 	@Column(name="username")
 	public String getUsername() {
 		return username;

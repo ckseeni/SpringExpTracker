@@ -19,7 +19,9 @@ public class ExpensesDao {
 	private Session session = null;
 	
 	public ExpensesDao() {
-		factory=new Configuration().configure().buildSessionFactory();     
+		Configuration configuration = new Configuration();
+		configuration.addAnnotatedClass(com.ExpTracker.Model.ExpensesDTO.class);
+		factory=configuration.configure().buildSessionFactory();     
 		session=factory.openSession(); 
 	}
 	

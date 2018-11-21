@@ -12,6 +12,8 @@
 	        <property name="connection.username">ckseeni199631</property>  
 	        <property name="connection.password">Stefan@1996</property>
 	        <property name="connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>   
+	        <mapping class="com.ExpTracker.Model.ExpensesDTO"/> 
+	        <mapping class="com.ExpTracker.Model.UsersDTO"/>
       </session-factory>
   
 </hibernate-configuration>  

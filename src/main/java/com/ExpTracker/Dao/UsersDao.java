@@ -15,7 +15,9 @@ public class UsersDao {
 	private Session session = null;
 	
 	public UsersDao() {
-		factory=new Configuration().configure().buildSessionFactory();     
+		Configuration configuration = new Configuration();
+		configuration.addAnnotatedClass(com.ExpTracker.Model.UsersDTO.class);
+		factory=configuration.configure().buildSessionFactory();     
 		session=factory.openSession(); 
 	}
 	
