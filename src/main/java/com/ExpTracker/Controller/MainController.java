@@ -54,12 +54,15 @@ public class MainController {
 	public void authenticateUser(@RequestBody String userObj, HttpServletResponse response) throws JsonParseException, JsonMappingException, IOException {
 		UsersDTO usersDTO = new ObjectMapper().readValue(userObj, UsersDTO.class);
 		try {
-			usersDao.authenticateUser(usersDTO);
-			response.setStatus(201);
+			UsersDTO fetchedUser = usersDao.authenticateUser(usersDTO);
+			if(fetchedUser.getPassword().equals(usersDTO.getPassword()))
+				response.setStatus(201);
+			else
+				response.setStatus(401);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
-			response.setStatus(401);
+			response.setStatus(500);
 		}
 	}
 	
