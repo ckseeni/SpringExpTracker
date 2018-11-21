@@ -1,5 +1,7 @@
 package com.ExpTracker.Dao;
 
+import javax.persistence.TypedQuery;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -25,5 +27,12 @@ public class UsersDao {
 		Transaction transaction = session.beginTransaction();
 		session.persist(usersDTO);
 		transaction.commit();
+	}
+	
+	public UsersDTO authenticateUser(UsersDTO usersDTO) {
+		TypedQuery<UsersDTO> query = session.createQuery("from UsersDTO where username = :userName");
+		query.setParameter("userName", usersDTO.getUsername());
+		UsersDTO fetchedUser = query.getSingleResult();
+		return fetchedUser;
 	}
 }

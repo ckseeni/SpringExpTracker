@@ -50,6 +50,19 @@ public class MainController {
 		}
 	}
 	
+	@RequestMapping(value = "/authenticateUser", method = RequestMethod.POST)
+	public void authenticateUser(@RequestBody String userObj, HttpServletResponse response) throws JsonParseException, JsonMappingException, IOException {
+		UsersDTO usersDTO = new ObjectMapper().readValue(userObj, UsersDTO.class);
+		try {
+			usersDao.authenticateUser(usersDTO);
+			response.setStatus(201);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			response.setStatus(401);
+		}
+	}
+	
 	@RequestMapping(value = "/addExp", method = RequestMethod.POST)
 	public void addExpenses(@RequestBody String expData, HttpServletResponse response) throws JsonParseException, JsonMappingException, IOException {
 		ExpensesDTO expensesDTO = new ObjectMapper().readValue(expData, ExpensesDTO.class);
