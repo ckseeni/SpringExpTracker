@@ -3,7 +3,10 @@ package com.ExpTracker.Controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonParseException;
@@ -33,8 +36,14 @@ public class MainController {
 	public UsersDao usersDao;
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String indexPage() {
-		return "index";
+	public String indexPage(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if(session != null) {
+			return "expMain";
+		}
+		else {
+			return "index";
+		}
 	}
 	
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
@@ -51,12 +60,16 @@ public class MainController {
 	}
 	
 	@RequestMapping(value = "/authenticateUser", method = RequestMethod.POST)
-	public void authenticateUser(@RequestBody String userObj, HttpServletResponse response) throws JsonParseException, JsonMappingException, IOException {
+	public void authenticateUser(@RequestBody String userObj, HttpServletRequest request, HttpServletResponse response) throws JsonParseException, JsonMappingException, IOException {
 		UsersDTO usersDTO = new ObjectMapper().readValue(userObj, UsersDTO.class);
 		try {
 			UsersDTO fetchedUser = usersDao.authenticateUser(usersDTO);
-			if(fetchedUser.getPassword().equals(usersDTO.getPassword()))
+			if(fetchedUser.getPassword().equals(usersDTO.getPassword())) {
+				HttpSession session = request.getSession(true);
+				session.setAttribute("username", usersDTO.getUsername());
+				session.setMaxInactiveInterval(5*60);
 				response.setStatus(201);
+			}		
 			else
 				response.setStatus(401);
 		}

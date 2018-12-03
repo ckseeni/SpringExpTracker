@@ -67,6 +67,14 @@
 	border-radius: 25px;
 	border: 1px solid rgba(255, 255, 255, 0.3);
 }
+.exportButton {
+	height: 35px;
+	width: 200px;
+	background-color: #1C313A;
+	color: #FFFFFF;
+	border-radius: 25px;
+	border: 1px solid rgba(255, 255, 255, 0.3);
+}
 #expListTable {
 	color: #ffffff;	
 	text-align: center;	
