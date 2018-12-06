@@ -3,7 +3,6 @@ package com.ExpTracker.Controller;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -80,7 +79,13 @@ public class MainController {
 	}
 	
 	@RequestMapping(value = "/addExp", method = RequestMethod.POST)
-	public void addExpenses(@RequestBody String expData, HttpServletResponse response) throws JsonParseException, JsonMappingException, IOException {
+	public void addExpenses(@RequestBody String expData, HttpServletResponse response, HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException {
+		HttpSession session = request.getSession(false);
+		String username = (String)session.getAttribute("username");
+		StringBuilder expDataBuilder = new StringBuilder(expData.substring(0, expData.length()-1));
+		expDataBuilder.append(","+"\"username\""+":"+"\""+username+"\""+"}");
+		//expDataBuilder.append(","+"\"id\""+":"+"\""+"2"+"\""+"}");
+		expData = expDataBuilder.toString();
 		ExpensesDTO expensesDTO = new ObjectMapper().readValue(expData, ExpensesDTO.class);
 		try {
 			expdao.addExpenses(expensesDTO);
