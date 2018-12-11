@@ -71,6 +71,7 @@ app.controller('expListController', function($scope, $http, $window) {
         link = document.createElement('a');
         link.setAttribute('href', csv);
         link.setAttribute('download', filename);
+        link.click();
     }
 	
 	$scope.exportCSV = function() {

@@ -25,8 +25,9 @@ public class ExpensesDao {
 		session=factory.openSession(); 
 	}
 	
-	public List<ExpensesDTO> readAllExpenses() {
-		TypedQuery<ExpensesDTO> query = session.createQuery("from ExpensesDTO");
+	public List<ExpensesDTO> readAllExpenses(String username) {
+		TypedQuery<ExpensesDTO> query = session.createQuery("from ExpensesDTO where username = :userName");
+		query.setParameter("userName", username);
 		List<ExpensesDTO> arr = query.getResultList();
 		return arr;
 	}
@@ -37,9 +38,10 @@ public class ExpensesDao {
 		transaction.commit();
 	}
 	
-	public void deleteExpenses() {
+	public void deleteExpenses(String username) {
 		Transaction transaction = session.beginTransaction();
-		TypedQuery<ExpensesDTO> query = session.createQuery("delete from ExpensesDTO");
+		TypedQuery<ExpensesDTO> query = session.createQuery("delete from ExpensesDTO where username = :userName");
+		query.setParameter("userName", username);
 		query.executeUpdate();
 		transaction.commit();
 	}

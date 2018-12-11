@@ -22,7 +22,7 @@ import javax.mail.util.ByteArrayDataSource;
 
 public class EmailService {
 
-	public void sendEmail(String expCSVData) throws MessagingException, IOException {
+	public void sendEmail(String expCSVData, String username) throws MessagingException, IOException {
 		
 		String host="smtp.gmail.com";  
 		final String user="ckseenitce@gmail.com";  
@@ -53,7 +53,7 @@ public class EmailService {
 		message.setSubject("ExpensesList");  
 		
         BodyPart messageBodyPart = new MimeBodyPart();
-        messageBodyPart.setText("Expenses list is provided as attachment. Download it");
+        messageBodyPart.setText("Hi "+username+", Expenses list is provided as attachment. Download it");
         Multipart multipart = new MimeMultipart();
         multipart.addBodyPart(messageBodyPart);
         messageBodyPart = new MimeBodyPart();

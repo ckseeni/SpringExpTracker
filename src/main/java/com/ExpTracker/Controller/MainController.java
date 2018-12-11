@@ -82,10 +82,9 @@ public class MainController {
 	public void addExpenses(@RequestBody String expData, HttpServletResponse response, HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException {
 		HttpSession session = request.getSession(false);
 		String username = (String)session.getAttribute("username");
-		StringBuilder expDataBuilder = new StringBuilder(expData.substring(0, expData.length()-1));
-		expDataBuilder.append(","+"\"username\""+":"+"\""+username+"\""+"}");
-		//expDataBuilder.append(","+"\"id\""+":"+"\""+"2"+"\""+"}");
-		expData = expDataBuilder.toString();
+		JSONObject expDataJson = new JSONObject(expData);
+		expDataJson.put("username", username);
+		expData = expDataJson.toString();
 		ExpensesDTO expensesDTO = new ObjectMapper().readValue(expData, ExpensesDTO.class);
 		try {
 			expdao.addExpenses(expensesDTO);
@@ -97,8 +96,10 @@ public class MainController {
 	}
 	
 	@RequestMapping(value = "/retriveExp", method = RequestMethod.GET)
-	public @ResponseBody String retrieveExpenses() throws JsonGenerationException, JsonMappingException, IOException {
-		List<ExpensesDTO> result = expdao.readAllExpenses();
+	public @ResponseBody String retrieveExpenses(HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException {
+		HttpSession session = request.getSession(false);
+		String username = (String)session.getAttribute("username");
+		List<ExpensesDTO> result = expdao.readAllExpenses(username);
 		String expJson = new ObjectMapper().writeValueAsString(result);
 		JSONObject expListObject = new JSONObject();
 		expListObject.put("expList",expJson);
@@ -106,16 +107,20 @@ public class MainController {
 	}
 	
 	@RequestMapping(value = "/delExp", method = RequestMethod.DELETE)
-	public void deleteExpenses(HttpServletResponse response) {
-		expdao.deleteExpenses();
+	public void deleteExpenses(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession(false);
+		String username = (String)session.getAttribute("username");
+		expdao.deleteExpenses(username);
 		response.setStatus(201);	
 	}
 
 	@RequestMapping(value = "/emailExp", method = RequestMethod.POST)
-	public void emailSender(@RequestBody String expCSVData, HttpServletResponse response) {
+	public void emailSender(@RequestBody String expCSVData,HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession(false);
+		String username = (String)session.getAttribute("username");
 		EmailService emailService = new EmailService();
 		try {
-			emailService.sendEmail(expCSVData);
+			emailService.sendEmail(expCSVData,username);
 			response.setStatus(200);
 		} catch(Exception e) {
 			response.setStatus(500);
