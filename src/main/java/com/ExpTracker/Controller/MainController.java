@@ -78,6 +78,19 @@ public class MainController {
 		}
 	}
 	
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public void logoutUser(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			HttpSession session = request.getSession(false);
+			session.invalidate();
+			response.setStatus(200);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			response.setStatus(500);
+		}
+	}
+	
 	@RequestMapping(value = "/addExp", method = RequestMethod.POST)
 	public void addExpenses(@RequestBody String expData, HttpServletResponse response, HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException {
 		HttpSession session = request.getSession(false);

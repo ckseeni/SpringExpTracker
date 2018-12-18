@@ -67,6 +67,17 @@
 	border-radius: 25px;
 	border: 1px solid rgba(255, 255, 255, 0.3);
 }
+.LogOutButton {
+	height: 35px;
+	width: 100px;
+	background-color: #1C313A;
+	color: #FFFFFF;
+	border-radius: 25px;
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	position: absolute;
+	top: 25px;
+	right: 50px;
+}
 .exportButton {
 	height: 35px;
 	width: 200px;

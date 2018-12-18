@@ -85,4 +85,13 @@ app.controller('expListController', function($scope, $http, $window) {
 		});
 	};
 	
+	$scope.logOut = function() {
+		$http.get('http://localhost:8080/ExpTracker/logout')
+		.then(function() {
+			window.location = "index.html";
+		}, function() {
+			alert("Error in logging out!!");
+		});
+	};
+	
 });
