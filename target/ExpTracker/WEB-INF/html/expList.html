@@ -3,8 +3,9 @@
 <script src = "expList.js"></script>
 <link rel = "stylesheet" type = "text/css" href = "expMain.css" />
 <body class="mainView" data-ng-app="expListApp" data-ng-controller="expListController" data-ng-init = "loadExpList()">
-
-<h2 class = "title">Expenses list</h2>
+<div>
+<h1 class = "title">Expenses list</h1>
+<button class="LogOutButton" data-ng-click="logOut()">Log Out</button>
 <br><br><br>
  <table cellpadding = "0" cellspacing = "0" id = "expListTable" align="center">
  	<tr>
@@ -25,6 +26,7 @@
 <div  class = "dockedBottomButton">
 <button data-ng-click = "clearExpList()" class = "Button">X</button>
 <button class = "exportButton" data-ng-click = "exportCSV()">Send as email</button>
+</div>
 </div>
 </body>
 </html>

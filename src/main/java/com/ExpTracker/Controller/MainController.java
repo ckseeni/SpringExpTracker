@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -34,13 +36,17 @@ public class MainController {
 	@Autowired
 	public UsersDao usersDao;
 	
+	private static Log logger = LogFactory.getLog(MainController.class);
+	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String indexPage(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		if(session != null) {
+			logger.info("Existing session: "+session.getId()+" and logged username is "+(String)session.getAttribute("username")+".Redirecting to expMain page.");
 			return "expMain";
 		}
 		else {
+			logger.info("No Existing session. Redirecting to login page.");
 			return "index";
 		}
 	}
@@ -50,9 +56,13 @@ public class MainController {
 		UsersDTO usersDTO = new ObjectMapper().readValue(userObj, UsersDTO.class);
 		try {
 			usersDao.addUsers(usersDTO);
+			logger.info("User "+usersDTO.getUsername()+ " registered successfully");
+			logger.debug("User object: "+usersDTO.toString());
 			response.setStatus(201);
 		}
 		catch(Exception e) {
+			logger.info("Error while registering user: "+usersDTO.getUsername());
+			logger.debug("User object: \n"+usersDTO.toString());
 			e.printStackTrace();
 			response.setStatus(403);
 		}
@@ -67,12 +77,19 @@ public class MainController {
 				HttpSession session = request.getSession(true);
 				session.setAttribute("username", usersDTO.getUsername());
 				session.setMaxInactiveInterval(5*60);
+				logger.info("Created a new session "+session.getId()+" for the login user: "+fetchedUser.getUsername());
+				logger.debug("User object: "+usersDTO.toString());
 				response.setStatus(201);
 			}		
-			else
+			else {
+				logger.info("Entered password is wrong for the login user: "+fetchedUser.getUsername());
+				logger.debug("User object: "+usersDTO.toString());
 				response.setStatus(401);
+			}	
 		}
 		catch(Exception e) {
+			logger.info("Error while authentication of user: "+usersDTO.getUsername());
+			logger.debug("User object: "+usersDTO.toString());
 			e.printStackTrace();
 			response.setStatus(500);
 		}
@@ -80,12 +97,14 @@ public class MainController {
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public void logoutUser(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession(false);
 		try {
-			HttpSession session = request.getSession(false);
+			logger.info("Logging out the user: "+(String)session.getAttribute("username")+". Invalidating the session:"+session.getId());
 			session.invalidate();
 			response.setStatus(200);
 		}
 		catch(Exception e) {
+			logger.info("Error while logging out the user: "+(String)session.getAttribute("username")+"and the session:"+session.getId());
 			e.printStackTrace();
 			response.setStatus(500);
 		}
@@ -101,9 +120,14 @@ public class MainController {
 		ExpensesDTO expensesDTO = new ObjectMapper().readValue(expData, ExpensesDTO.class);
 		try {
 			expdao.addExpenses(expensesDTO);
+			logger.info("Expenses added successfully");
+			logger.debug("Expenses object: \n"+expensesDTO.toString());
 			response.setStatus(201);
 		}
 		catch(Exception e) {
+			logger.info("Exception caught while adding the expenses");
+			logger.debug("Expenses object: \n"+expensesDTO.toString());
+			e.printStackTrace();
 			response.setStatus(500);
 		}
 	}
@@ -116,6 +140,8 @@ public class MainController {
 		String expJson = new ObjectMapper().writeValueAsString(result);
 		JSONObject expListObject = new JSONObject();
 		expListObject.put("expList",expJson);
+		logger.info("Expenses list retrieved successfully");
+		logger.debug(expdao.toString());
 		return expListObject.toString();
 	}
 	
@@ -124,6 +150,7 @@ public class MainController {
 		HttpSession session = request.getSession(false);
 		String username = (String)session.getAttribute("username");
 		expdao.deleteExpenses(username);
+		logger.info("Expenses deleted successfully");
 		response.setStatus(201);	
 	}
 
@@ -134,8 +161,11 @@ public class MainController {
 		EmailService emailService = new EmailService();
 		try {
 			emailService.sendEmail(expCSVData,username);
+			logger.info("Emailing the expenses done successfully");
 			response.setStatus(200);
 		} catch(Exception e) {
+			logger.info("Error while emailing the expenses");
+			e.printStackTrace();
 			response.setStatus(500);
 		}
 	}

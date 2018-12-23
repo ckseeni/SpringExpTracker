@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.TypedQuery;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -17,18 +19,21 @@ public class ExpensesDao {
 	
 	private SessionFactory factory  = null;
 	private Session session = null;
+	private static Log logger = LogFactory.getLog(ExpensesDao.class);
 	
 	public ExpensesDao() {
 		Configuration configuration = new Configuration();
 		configuration.addAnnotatedClass(com.ExpTracker.Model.ExpensesDTO.class);
 		factory=configuration.configure().buildSessionFactory();     
 		session=factory.openSession(); 
+		logger.debug("Hiberante session created for ExpensesDao");
 	}
 	
 	public List<ExpensesDTO> readAllExpenses(String username) {
 		TypedQuery<ExpensesDTO> query = session.createQuery("from ExpensesDTO where username = :userName");
 		query.setParameter("userName", username);
 		List<ExpensesDTO> arr = query.getResultList();
+		logger.debug("Querying done for readAllExpenses");
 		return arr;
 	}
 	
@@ -36,6 +41,7 @@ public class ExpensesDao {
 		Transaction transaction = session.beginTransaction();
 		session.persist(e);
 		transaction.commit();
+		logger.debug("Transaction commited for adding Expenses");
 	}
 	
 	public void deleteExpenses(String username) {
@@ -44,5 +50,6 @@ public class ExpensesDao {
 		query.setParameter("userName", username);
 		query.executeUpdate();
 		transaction.commit();
+		logger.debug("Transaction commited for Deleting expenses");
 	}
 }

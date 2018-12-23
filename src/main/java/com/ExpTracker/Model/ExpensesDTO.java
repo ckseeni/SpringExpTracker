@@ -19,6 +19,12 @@ public class ExpensesDTO {
 	
 	private String dateAndTime;
 	
+	@Override
+	public String toString() {
+		return "ExpensesDTO [id=" + id + "\n name=" + name + "\n amount=" + amount + "\n dateAndTime=" + dateAndTime
+				+ "\n username=" + username + "]";
+	}
+
 	private String username;
 	
 	@Id

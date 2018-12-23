@@ -71,6 +71,7 @@ app.controller('expListController', function($scope, $http, $window) {
         link = document.createElement('a');
         link.setAttribute('href', csv);
         link.setAttribute('download', filename);
+        link.click();
     }
 	
 	$scope.exportCSV = function() {
@@ -81,6 +82,15 @@ app.controller('expListController', function($scope, $http, $window) {
 			alert("email sent successfully!!");
 		}, function() {
 			alert("Error in sending email!!");
+		});
+	};
+	
+	$scope.logOut = function() {
+		$http.get('http://localhost:8080/ExpTracker/logout')
+		.then(function() {
+			window.location = "index.html";
+		}, function() {
+			alert("Error in logging out!!");
 		});
 	};
 	
