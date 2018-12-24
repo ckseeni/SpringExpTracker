@@ -24,7 +24,7 @@ public class UsersDao {
 		configuration.addAnnotatedClass(com.ExpTracker.Model.UsersDTO.class);
 		factory=configuration.configure().buildSessionFactory();     
 		session=factory.openSession();
-		logger.debug("Hiberante session created for UsersDao");
+		logger.debug("Hibernate session created for UsersDao");
 	}
 	
 	public void addUsers(UsersDTO usersDTO) {

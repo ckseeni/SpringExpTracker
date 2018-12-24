@@ -26,7 +26,7 @@ public class ExpensesDao {
 		configuration.addAnnotatedClass(com.ExpTracker.Model.ExpensesDTO.class);
 		factory=configuration.configure().buildSessionFactory();     
 		session=factory.openSession(); 
-		logger.debug("Hiberante session created for ExpensesDao");
+		logger.debug("Hibernate session created for ExpensesDao");
 	}
 	
 	public List<ExpensesDTO> readAllExpenses(String username) {

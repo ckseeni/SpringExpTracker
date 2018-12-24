@@ -1,7 +1,9 @@
 C:\Spring apps\ExpTracker\src\main\java\com\ExpTracker\Configuration\ApplicationConfiguration.java
 C:\Spring apps\ExpTracker\src\main\java\com\ExpTracker\Configuration\WebInitializer.java
+C:\Spring apps\ExpTracker\src\main\java\com\ExpTracker\Controller\ExpensesController.java
 C:\Spring apps\ExpTracker\src\main\java\com\ExpTracker\Model\ExpensesDTO.java
 C:\Spring apps\ExpTracker\src\main\java\com\ExpTracker\Controller\MainController.java
+C:\Spring apps\ExpTracker\src\main\java\com\ExpTracker\Controller\UserController.java
 C:\Spring apps\ExpTracker\src\main\java\com\ExpTracker\Dao\ExpensesDao.java
 C:\Spring apps\ExpTracker\src\main\java\com\ExpTracker\Dao\UsersDao.java
 C:\Spring apps\ExpTracker\src\main\java\com\ExpTracker\Model\UsersDTO.java

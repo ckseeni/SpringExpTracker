@@ -2,8 +2,10 @@ com\ExpTracker\Model\ExpensesDTO.class
 com\ExpTracker\Model\UsersDTO.class
 com\ExpTracker\Email\EmailService.class
 com\ExpTracker\Configuration\WebInitializer.class
+com\ExpTracker\Controller\UserController.class
 com\ExpTracker\Dao\ExpensesDao.class
 com\ExpTracker\Email\EmailService$1.class
 com\ExpTracker\Controller\MainController.class
+com\ExpTracker\Controller\ExpensesController.class
 com\ExpTracker\Configuration\ApplicationConfiguration.class
 com\ExpTracker\Dao\UsersDao.class
