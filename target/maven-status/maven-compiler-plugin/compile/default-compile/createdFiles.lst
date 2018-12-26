@@ -6,6 +6,8 @@ com\ExpTracker\Controller\UserController.class
 com\ExpTracker\Dao\ExpensesDao.class
 com\ExpTracker\Email\EmailService$1.class
 com\ExpTracker\Controller\MainController.class
+com\ExpTracker\Service\UserService.class
+com\ExpTracker\Service\ExpensesService.class
 com\ExpTracker\Controller\ExpensesController.class
 com\ExpTracker\Configuration\ApplicationConfiguration.class
 com\ExpTracker\Dao\UsersDao.class

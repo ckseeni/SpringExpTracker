@@ -20,7 +20,9 @@ import javax.mail.util.ByteArrayDataSource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.stereotype.Component;
 
+@Component
 public class EmailService {
 	
 	private static Log logger = LogFactory.getLog(EmailService.class);

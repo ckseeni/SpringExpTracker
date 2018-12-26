@@ -6,5 +6,7 @@ C:\Spring apps\ExpTracker\src\main\java\com\ExpTracker\Controller\MainController
 C:\Spring apps\ExpTracker\src\main\java\com\ExpTracker\Controller\UserController.java
 C:\Spring apps\ExpTracker\src\main\java\com\ExpTracker\Dao\ExpensesDao.java
 C:\Spring apps\ExpTracker\src\main\java\com\ExpTracker\Dao\UsersDao.java
+C:\Spring apps\ExpTracker\src\main\java\com\ExpTracker\Service\ExpensesService.java
+C:\Spring apps\ExpTracker\src\main\java\com\ExpTracker\Service\UserService.java
 C:\Spring apps\ExpTracker\src\main\java\com\ExpTracker\Model\UsersDTO.java
 C:\Spring apps\ExpTracker\src\main\java\com\ExpTracker\Email\EmailService.java

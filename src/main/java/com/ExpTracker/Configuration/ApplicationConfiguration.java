@@ -11,7 +11,12 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.ExpTracker.Configuration", "com.ExpTracker.Controller", "com.ExpTracker.Dao", "com.ExpTracker.Model"})
+@ComponentScan(basePackages = {"com.ExpTracker.Configuration", 
+							   "com.ExpTracker.Controller", 
+							   "com.ExpTracker.Dao", 
+							   "com.ExpTracker.Model", 
+							   "com.ExpTracker.Service", 
+							   "com.ExpTracker.Email"})
 public class ApplicationConfiguration implements WebMvcConfigurer {
 	
 	//@Override

@@ -37,9 +37,9 @@ public class ExpensesDao {
 		return arr;
 	}
 	
-	public void addExpenses(ExpensesDTO e) {
+	public void addExpenses(ExpensesDTO expensesDTO) {
 		Transaction transaction = session.beginTransaction();
-		session.persist(e);
+		session.persist(expensesDTO);
 		transaction.commit();
 		logger.debug("Transaction commited for adding Expenses");
 	}
