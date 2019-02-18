@@ -1,6 +1,6 @@
 var app = angular.module('expApp', []);
 app.controller('expController', function($scope, $http, $location) {
-		
+	
 	$scope.addExpense = function() {
 		if($scope.expForm.$valid) { 
 			var date = new Date();
@@ -41,6 +41,11 @@ app.controller('expController', function($scope, $http, $location) {
 		}, function() {
 			alert("Error in logging out!!");
 		});
+	};
+	
+	$scope.importCSV = function() {
+		var fd = new FormData();
+		alert($scope.files);
 	};
 	
 });
