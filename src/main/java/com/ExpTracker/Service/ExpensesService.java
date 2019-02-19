@@ -3,12 +3,12 @@ package com.ExpTracker.Service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.ExpTracker.Dao.ExpensesDao;
 import com.ExpTracker.Model.ExpensesDTO;
 
-@Component
+@Service
 public class ExpensesService {
 	
 	@Autowired

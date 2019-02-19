@@ -10,26 +10,29 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ExpTracker.Model.ExpensesDTO;
 
-@Component
+@Repository
+@Transactional
 public class ExpensesDao {
 	
-	private SessionFactory factory  = null;
+	@Autowired
+	private SessionFactory factory;
+	
 	private Session session = null;
+	
 	private static Log logger = LogFactory.getLog(ExpensesDao.class);
 	
-	public ExpensesDao() {
-		Configuration configuration = new Configuration();
-		configuration.addAnnotatedClass(com.ExpTracker.Model.ExpensesDTO.class);
-		factory=configuration.configure().buildSessionFactory();     
-		session=factory.openSession(); 
-		logger.debug("Hibernate session created for ExpensesDao");
+	private Session getCurrentSession() {
+		return factory.getCurrentSession();
 	}
 	
 	public List<ExpensesDTO> readAllExpenses(String username) {
+		session = getCurrentSession();
 		TypedQuery<ExpensesDTO> query = session.createQuery("from ExpensesDTO where username = :userName");
 		query.setParameter("userName", username);
 		List<ExpensesDTO> arr = query.getResultList();
@@ -38,18 +41,16 @@ public class ExpensesDao {
 	}
 	
 	public void addExpenses(ExpensesDTO expensesDTO) {
-		Transaction transaction = session.beginTransaction();
+		session = getCurrentSession();
 		session.persist(expensesDTO);
-		transaction.commit();
-		logger.debug("Transaction commited for adding Expenses");
+		logger.debug("adding Expenses: "+expensesDTO.getName()+"!");
 	}
 	
 	public void deleteExpenses(String username) {
-		Transaction transaction = session.beginTransaction();
+		session = getCurrentSession();
 		TypedQuery<ExpensesDTO> query = session.createQuery("delete from ExpensesDTO where username = :userName");
 		query.setParameter("userName", username);
 		query.executeUpdate();
-		transaction.commit();
-		logger.debug("Transaction commited for Deleting expenses");
+		logger.debug("Deleting expenses for user: "+username);
 	}
 }

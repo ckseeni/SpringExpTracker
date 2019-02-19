@@ -6,35 +6,35 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ExpTracker.Model.UsersDTO;
 
-@Component
+@Repository
+@Transactional
 public class UsersDao {
 	
-	private SessionFactory factory  = null;
+	@Autowired
+	private SessionFactory factory;
+	
 	private Session session = null;
+	
 	private static Log logger = LogFactory.getLog(UsersDao.class);
 	
-	public UsersDao() {
-		Configuration configuration = new Configuration();
-		configuration.addAnnotatedClass(com.ExpTracker.Model.UsersDTO.class);
-		factory=configuration.configure().buildSessionFactory();     
-		session=factory.openSession();
-		logger.debug("Hibernate session created for UsersDao");
+	private Session getCurrentSession() {
+		return factory.getCurrentSession();
 	}
 	
 	public void addUsers(UsersDTO usersDTO) {
-		Transaction transaction = session.beginTransaction();
+		session = getCurrentSession();
 		session.persist(usersDTO);
-		transaction.commit();
-		logger.debug("Transaction commited for adding users");
+		logger.debug("New User : "+usersDTO.getUsername()+" registered!");
 	}
 	
 	public UsersDTO authenticateUser(UsersDTO usersDTO) {
+		session = getCurrentSession();
 		TypedQuery<UsersDTO> query = session.createQuery("from UsersDTO where username = :userName");
 		query.setParameter("userName", usersDTO.getUsername());
 		UsersDTO fetchedUser = query.getSingleResult();

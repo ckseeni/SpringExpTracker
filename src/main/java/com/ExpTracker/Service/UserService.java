@@ -4,12 +4,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.ExpTracker.Dao.UsersDao;
 import com.ExpTracker.Model.UsersDTO;
 
-@Component
+@Service
 public class UserService {
 
 	@Autowired
