@@ -7,6 +7,7 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import java.io.IOException;
 import java.util.Properties;
 
 import javax.sql.DataSource;
@@ -22,7 +23,7 @@ import org.springframework.context.annotation.Bean;
 public class DatabaseConfiguration {
 	
 	@Bean
-	public LocalSessionFactoryBean sessionFactory() {
+	public LocalSessionFactoryBean sessionFactory() throws IOException {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 		sessionFactory.setDataSource(restDataSource());
 		sessionFactory.setPackagesToScan(
@@ -32,12 +33,8 @@ public class DatabaseConfiguration {
 	}
 	
 	@Bean
-	public DataSource restDataSource() {
-		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-		dataSource.setUrl("jdbc:sqlserver://localhost:1433;databaseName=ExpTracker");
-		dataSource.setUsername("ckseeni199631");
-		dataSource.setPassword("Stefan@1996");
+	public DataSource restDataSource() throws IOException{
+		BasicDataSource dataSource = DataSourceFactory.getDataSource();
 		return dataSource;
 	}
 	
@@ -54,11 +51,11 @@ public class DatabaseConfiguration {
 		return new PersistenceExceptionTranslationPostProcessor();
 	}	
 	
-	Properties hibernateProperties() {
+	Properties hibernateProperties() throws IOException {
 		return new Properties() {
 			{
 				setProperty("hibernate.hbm2ddl.auto","validate");
-				setProperty("hibernate.dialect","org.hibernate.dialect.SQLServerDialect");
+				setProperty("hibernate.dialect", DataSourceFactory.getHibernateDialect());
 				setProperty("hibernate.globally_quoted_identifiers","true");
 			}
 		};
