@@ -1,5 +1,8 @@
 package com.ExpTracker.Controller;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
@@ -9,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -83,6 +87,33 @@ public class ExpensesController {
 		} catch(Exception e) {
 			logger.info("Error while emailing the expenses");
 			e.printStackTrace();
+			response.setStatus(500);
+		}
+	}
+	
+	@RequestMapping(value = "/importFile", method = RequestMethod.GET)
+	public void importFile(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		FileReader fileReader = new FileReader("C:\\Spring apps\\ExpTracker\\src\\main\\File\\importFile.csv");
+		BufferedReader bufferedReader = new BufferedReader(fileReader);
+		JSONArray jsonArray = new JSONArray();
+		String userName = getUsername(request);
+		String line = bufferedReader.readLine();
+		while(line != null) {
+			String arr[] = line.split(",");
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("name",arr[0]);
+			jsonObject.put("amount", arr[1]);
+			jsonObject.put("dateAndTime", "importedViaFile");
+			jsonObject.put("username", userName);
+			jsonArray.put(jsonObject);
+			line = bufferedReader.readLine();
+		}
+		try {
+			expService.importFileService(jsonArray);
+			logger.info("File imported successfully!!");
+			response.setStatus(200);
+		} catch(Exception e) {
+			logger.info("Error while importing file");
 			response.setStatus(500);
 		}
 	}

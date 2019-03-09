@@ -43,9 +43,13 @@ app.controller('expController', function($scope, $http, $location) {
 		});
 	};
 	
-	$scope.importCSV = function() {
-		var fd = new FormData();
-		alert($scope.files);
+	$scope.importFile = function() {
+		$http.get('http://localhost:8080/ExpTracker/importFile')
+		.then(function() {
+			alert("file Imported Successfully");
+		}, function() {
+			alert("Error while importing file!!");
+		});
 	};
 	
 });
