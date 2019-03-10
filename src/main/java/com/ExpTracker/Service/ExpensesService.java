@@ -38,14 +38,28 @@ public class ExpensesService {
 	}
 
 	public void importFileService(JSONArray jsonArray) throws JSONException, JsonParseException, JsonMappingException, IOException {
-		logger.info("importing expenses!");
-		for(int i=0;i < jsonArray.length(); i++) {
+		logger.debug("importing expenses!");
+		for(int i=0; i<jsonArray.length(); i++) {
 			JSONObject jsonObject = jsonArray.getJSONObject(i);
 			String expData = jsonObject.toString();
 			ExpensesDTO expensesDTO = new ObjectMapper().readValue(expData, ExpensesDTO.class);
 			expDao.addExpenses(expensesDTO);
 		}
-		logger.info("importing finished!!");
+		logger.debug("importing finished!!");
+	}
+	
+	public String exportFileService(String username) {
+		logger.debug("Exporting expenses!!");
+		List<ExpensesDTO> expList = expDao.readAllExpenses(username);
+		StringBuilder builder = new StringBuilder();
+		for(int i=0; i<expList.size(); i++) {
+			builder.append(expList.get(i).getName());
+			builder.append(",");
+			builder.append(expList.get(i).getAmount());
+			builder.append("\n");
+		}
+		logger.debug("Exporting expenses finished!!");
+		return builder.toString();
 	}
 	
 }

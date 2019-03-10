@@ -94,4 +94,13 @@ app.controller('expListController', function($scope, $http, $window) {
 		});
 	};
 	
+	$scope.exportFile = function() {
+		$http.get('http://localhost:8080/ExpTracker/exportFile')
+		.then(function(){
+			alert("Export File done successfully!!");
+		}, function() {
+			alert("Error while exporting!!");
+		});
+	}
+	
 });

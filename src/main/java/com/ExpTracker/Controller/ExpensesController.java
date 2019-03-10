@@ -1,8 +1,11 @@
 package com.ExpTracker.Controller;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
@@ -115,6 +118,28 @@ public class ExpensesController {
 		} catch(Exception e) {
 			logger.info("Error while importing file");
 			response.setStatus(500);
+		} finally {
+			bufferedReader.close();
+		}
+	}
+
+	@RequestMapping(value = "/exportFile", method = RequestMethod.GET)
+	public void exportFile(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String username = getUsername(request);
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		try {
+			String expList = expService.exportFileService(username);
+			fileWriter = new FileWriter(new File("C:\\Spring apps\\ExpTracker\\src\\main\\File\\exportFile.csv"));
+			bufferedWriter = new BufferedWriter(fileWriter);
+			bufferedWriter.write(expList);
+			logger.info("file exported succesfully");
+			response.setStatus(200);
+		} catch (Exception e) {
+			logger.info("error while exporting file!");
+			response.setStatus(500);
+		} finally {
+			bufferedWriter.close();
 		}
 	}
 	
