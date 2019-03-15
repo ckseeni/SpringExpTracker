@@ -3,7 +3,6 @@ package com.ExpTracker.Controller;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -95,32 +94,20 @@ public class ExpensesController {
 	}
 	
 	@RequestMapping(value = "/importFile", method = RequestMethod.GET)
-	public void importFile(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		FileReader fileReader = new FileReader("C:\\Spring apps\\ExpTracker\\src\\main\\File\\importFile.csv");
-		BufferedReader bufferedReader = new BufferedReader(fileReader);
-		JSONArray jsonArray = new JSONArray();
+	public @ResponseBody String importFile(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		JSONObject result = new JSONObject();
 		String userName = getUsername(request);
-		String line = bufferedReader.readLine();
-		while(line != null) {
-			String arr[] = line.split(",");
-			JSONObject jsonObject = new JSONObject();
-			jsonObject.put("name",arr[0]);
-			jsonObject.put("amount", arr[1]);
-			jsonObject.put("dateAndTime", "importedViaFile");
-			jsonObject.put("username", userName);
-			jsonArray.put(jsonObject);
-			line = bufferedReader.readLine();
-		}
 		try {
-			expService.importFileService(jsonArray);
-			logger.info("File imported successfully!!");
+			expService.importFileService(userName);
+			logger.info("File importing started in a separate thread!!");
 			response.setStatus(200);
+			result.put("status","File imported Started");
 		} catch(Exception e) {
 			logger.info("Error while importing file");
 			response.setStatus(500);
-		} finally {
-			bufferedReader.close();
+			result.put("status", "Error while importing");
 		}
+		return result.toString();
 	}
 
 	@RequestMapping(value = "/exportFile", method = RequestMethod.GET)
@@ -132,7 +119,7 @@ public class ExpensesController {
 			String expList = expService.exportFileService(username);
 			fileWriter = new FileWriter(new File("C:\\Spring apps\\ExpTracker\\src\\main\\File\\exportFile.csv"));
 			bufferedWriter = new BufferedWriter(fileWriter);
-			bufferedWriter.write(expList);
+			bufferedWriter.append(expList);
 			logger.info("file exported succesfully");
 			response.setStatus(200);
 		} catch (Exception e) {
